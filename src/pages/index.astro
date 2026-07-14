@@ -1,0 +1,44 @@
+---
+// Aquí va la lógica de JavaScript si se necesita en el futuro
+const pageTitle = "Mi Portafolio Jamstack";
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				background-color: #0d1117;
+				color: #c9d1d9;
+				max-width: 800px;
+				margin: 40px auto;
+				padding: 20px;
+			}
+			a { color: #58a6ff; text-decoration: none; }
+			a:hover { text-decoration: underline; }
+			ul { list-style-type: none; padding: 0; }
+			li { margin: 15px 0; font-size: 1.1rem; }
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>¡Hola! Bienvenido a mi Portafolio</h1>
+			<p>Construido con la arquitectura de código Astro (SSG) y filosofía Jamstack.</p>
+		</header>
+		<main>
+			<section>
+				<h2>Mis Proyectos Autoreproducibles</h2>
+				<ul>
+					<li><a href="/blog">✍️ Mi Blog Personal</a> - Próximamente (Fase 2)</li>
+					<li><a href="/mi-app">🚀 Demo en Vivo (React)</a> - Próximamente (Fase 3)</li>
+					<li><a href="/docs">📚 Documentación Técnica</a> - Próximamente (Fase 4)</li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>
