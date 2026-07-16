@@ -2,7 +2,7 @@
 
 Este es el proyecto raíz y la base de operaciones de mi ecosistema de código abierto con arquitectura **Jamstack** y **SSG**, alojado en GitHub Pages.
 
-🔗 **Sitio web en vivo:** [https://github.io](https://github.io)
+🔗 **Sitio web en vivo:** [https://hazaelu.github.io/](https://hazaelu.github.io/)
 
 ---
 
