@@ -1,19 +1,36 @@
-# Mi Portafolio Personal (Ecosistema Astro)
+# 💼 Mi Portafolio Personal (Ecosistema Astro)
 
-Este es el proyecto raíz y la base de operaciones de mi ecosistema Jamstack en GitHub Pages.
+Este es el proyecto raíz y la base de operaciones de mi ecosistema de código abierto con arquitectura **Jamstack** y **SSG**, alojado en GitHub Pages.
+
+🔗 **Sitio web en vivo:** [https://github.io](https://github.io)
+
+---
 
 ## 🛠️ Arquitectura y Tecnologías
-- **Framework:** Astro (Static Site Generation - SSG)
-- **Despliegue:** GitHub Pages (`github.io`)
-- **Entorno:** Nube (GitHub Codespaces)
+- **Framework:** Astro 4.x (Static Site Generation - SSG)
+- **Entorno de ejecución:** Node.js v24 (Nativo)
+- **Automatización CI/CD:** GitHub Actions
+- **Alojamiento:** GitHub Pages (`github.io`)
+- **Entorno de desarrollo:** Nube (GitHub Codespaces)
+
+---
 
 ## 🚀 Cómo reproducir este entorno en 1 Clic
 
-Cualquier desarrollador puede auditar o editar este código de forma remota sin configuraciones locales:
+Cualquier desarrollador o reclutador puede auditar, ejecutar o editar este código fuente de forma 100% remota sin instalar nada en su computadora local. 
 
-1. Haz clic en el botón verde **Code** de este repositorio.
-2. Selecciona **Codespaces** y crea uno nuevo.
-3. Para iniciar el servidor de desarrollo en la nube, ejecuta en la terminal Bash:
+Haz clic en el siguiente botón para inicializar tu contenedor en la nube:
+
+[![Open in GitHub Codespaces](https://github.com)](https://codespaces.new)
+
+### Pasos manuales una vez dentro del entorno virtual:
+1. Abre la terminal integrada de tu Codespace (`Ctrl + ~`).
+2. El entorno instalará automáticamente las dependencias, pero puedes asegurar la última versión con:
+   ```bash
+   npm ci
+   ```
+3. Levanta el servidor local de desarrollo ejecutando:
    ```bash
    npm run dev
    ```
+4. Haz clic en el botón emergente **"Open in Browser"** para ver los cambios en tiempo real.
