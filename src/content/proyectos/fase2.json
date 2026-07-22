@@ -1,0 +1,10 @@
+{
+  "id": "fase-2",
+  "titulo": "Blog Autónomo",
+  "descripcion": "Generación de Sitios Estáticos (SSG) leyendo artículos locales en Markdown.",
+  "fase": 2,
+  "estado": "En Progreso",
+  "icono": "✍️",
+  "tecnologias": ["Astro", "Markdown", "Jamstack"],
+  "url": "/blog"
+}

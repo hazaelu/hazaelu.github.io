@@ -7,8 +7,10 @@ Este es el proyecto raíz y la base de operaciones de mi ecosistema de código a
 ---
 
 ## 🛠️ Arquitectura y Tecnologías
-- **Framework:** Astro 4.x (Static Site Generation - SSG)
-- **Entorno de ejecución:** Node.js v24 (Nativo)
+- **Framework:** Astro 7.x (Content Layer Nativo) 🚀
+- **Validador de Datos:** Zod (Esquemas con Tipado Estricto)
+- **Estructura Visual:** Bento Grid (Diseño Moderno y Responsivo)
+- **Entorno de ejecución:** Node.js v24
 - **Automatización CI/CD:** GitHub Actions
 - **Alojamiento:** GitHub Pages (`github.io`)
 - **Entorno de desarrollo:** Nube (GitHub Codespaces)

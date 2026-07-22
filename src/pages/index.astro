@@ -1,6 +1,12 @@
 ---
-// Aquí va la lógica de JavaScript si se necesita en el futuro
-const pageTitle = "Mi Portafolio Jamstack";
+import { getCollection } from 'astro:content';
+
+// Buenas Prácticas: Consultamos la colección de datos de forma asíncrona en tiempo de compilación
+const todosLosProyectos = await getCollection('proyectos');
+// Los ordenamos secuencialmente por el número de fase
+const proyectosOrdenados = todosLosProyectos.sort((a, b) => a.data.fase - b.data.fase);
+
+const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
 ---
 
 <html lang="es">
@@ -11,33 +17,128 @@ const pageTitle = "Mi Portafolio Jamstack";
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 		<style>
-			body {
-				font-family: system-ui, sans-serif;
-				background-color: #0d1117;
-				color: #c9d1d9;
-				max-width: 800px;
-				margin: 40px auto;
-				padding: 20px;
+			/* Variables Globales de Diseño Moderno */
+			:root {
+				--bg-main: #0a0e14;
+				--bg-card: #151b23;
+				--border-color: #30363d;
+				--text-primary: #f0f6fc;
+				--text-secondary: #8b949e;
+				--accent: #58a6ff;
+				--accent-success: #238636;
 			}
-			a { color: #58a6ff; text-decoration: none; }
-			a:hover { text-decoration: underline; }
-			ul { list-style-type: none; padding: 0; }
-			li { margin: 15px 0; font-size: 1.1rem; }
+
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				background-color: var(--bg-main);
+				color: var(--text-primary);
+				max-width: 1000px;
+				margin: 0 auto;
+				padding: 40px 20px;
+			}
+
+			header {
+				margin-bottom: 40px;
+				border-bottom: 1px solid var(--border-color);
+				padding-bottom: 20px;
+			}
+
+			h1 { font-size: 2.5rem; margin: 0 0 10px 0; font-weight: 800; }
+			header p { color: var(--text-secondary); font-size: 1.1rem; margin: 0; }
+
+			/* Estructura Bento Grid (Diseño de vanguardia en la web actual) */
+			.bento-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 20px;
+			}
+
+			/* Tarjeta Refactorizada y Semántica */
+			.card {
+				background-color: var(--bg-card);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				padding: 24px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				transition: transform 0.2s ease, border-color 0.2s ease;
+				text-decoration: none;
+				color: inherit;
+			}
+
+			.card:hover {
+				transform: translateY(-4px);
+				border-color: var(--accent);
+			}
+
+			.card-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				margin-bottom: 15px;
+			}
+
+			.icon { font-size: 2rem; }
+
+			.badge {
+				font-size: 0.75rem;
+				padding: 4px 8px;
+				border-radius: 20px;
+				font-weight: 600;
+				border: 1px solid var(--border-color);
+			}
+
+			/* Clases dinámicas según el estado del JSON */
+			.Completado { background-color: rgba(35, 134, 54, 0.15); color: #3fb950; border-color: rgba(63, 185, 80, 0.3); }
+			.En-Progreso { background-color: rgba(187, 128, 9, 0.15); color: #d29922; border-color: rgba(210, 153, 34, 0.3); }
+			.Próximamente { background-color: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+
+			h3 { margin: 0 0 8px 0; font-size: 1.3rem; }
+			.desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0; }
+
+			.tech-stack {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+			}
+
+			.tech-tag {
+				background-color: rgba(139, 148, 158, 0.1);
+				color: var(--accent);
+				font-size: 0.8rem;
+				padding: 2px 8px;
+				border-radius: 4px;
+				border: 1px solid rgba(88, 166, 255, 0.1);
+			}
 		</style>
 	</head>
 	<body>
 		<header>
-			<h1>¡Hola! Bienvenido a mi Portafolio</h1>
-			<p>Construido con la arquitectura de código Astro (SSG) y filosofía Jamstack.</p>
+			<h1>Ecosistema de Desarrollo</h1>
+			<p>Portafolio modularizado con Arquitectura Astro Content Collections e integración continua.</p>
 		</header>
 		<main>
-			<section>
-				<h2>Mis Proyectos Autoreproducibles</h2>
-				<ul>
-					<li><a href="/blog">✍️ Mi Blog Personal</a> - Próximamente (Fase 2)</li>
-					<li><a href="/mi-app">🚀 Demo en Vivo (React)</a> - Próximamente (Fase 3)</li>
-					<li><a href="/docs">📚 Documentación Técnica</a> - Próximamente (Fase 4)</li>
-				</ul>
+			<section class="bento-grid">
+				{proyectosOrdenados.map((proyecto) => (
+					<a href={proyecto.data.url} class="card">
+						<div>
+							<div class="card-header">
+								<span class="icon">{proyecto.data.icono}</span>
+								<span class={`badge ${proyecto.data.estado.replace(' ', '-')}`}>
+									Fase {proyecto.data.fase} • {proyecto.data.estado}
+								</span>
+							</div>
+							<h3>{proyecto.data.titulo}</h3>
+							<p class="desc">{proyecto.data.descripcion}</p>
+						</div>
+						<div class="tech-stack">
+							{proyecto.data.tecnologias.map((tech) => (
+								<span class="tech-tag">{tech}</span>
+							))}
+						</div>
+					</a>
+				))}
 			</section>
 		</main>
 	</body>

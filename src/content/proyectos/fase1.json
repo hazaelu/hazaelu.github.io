@@ -1,0 +1,10 @@
+{
+  "id": "fase-1",
+  "titulo": "Portafolio Base",
+  "descripcion": "Ecosistema raíz e infraestructura de automatización CI/CD con Node 24.",
+  "fase": 1,
+  "estado": "Completado",
+  "icono": "💼",
+  "tecnologias": ["Astro", "GitHub Actions", "Bash"],
+  "url": "/"
+}

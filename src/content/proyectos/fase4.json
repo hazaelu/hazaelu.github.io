@@ -1,0 +1,10 @@
+{
+  "id": "fase-4",
+  "titulo": "Documentación Técnica",
+  "descripcion": "Manual de usuario interactivo y centralizado para auditoría de código abierto.",
+  "fase": 4,
+  "estado": "Próximamente",
+  "icono": "📚",
+  "tecnologias": ["Docusaurus", "MDX", "Algolia"],
+  "url": "/docs"
+}

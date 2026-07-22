@@ -1,0 +1,10 @@
+{
+  "id": "fase-3",
+  "titulo": "App Interactiva",
+  "descripcion": "Demostración en vivo integrando frameworks SPA exigidos en el mercado.",
+  "fase": 3,
+  "estado": "Próximamente",
+  "icono": "🚀",
+  "tecnologias": ["React", "Tailwind CSS", "APIs"],
+  "url": "/mi-app"
+}
