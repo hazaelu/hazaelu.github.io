@@ -3,22 +3,22 @@
 import { getCollection } from 'astro:content';
 
 /**
- * CONSULTA Y FILTRADO DE DATOS (BUENAS PRÁCTICAS SSG)
+ * CONSULTA Y FILTRADO DE DATOS EN INGLÉS (BUENAS PRÁCTICAS SSG)
  * Consultamos la colección 'proyectos' de forma asíncrona en tiempo de compilación.
  */
 const todosLosProyectos = await getCollection('proyectos');
 
-// Filtramos la lista para conservar únicamente los proyectos alojados en la subcarpeta '/es/'
-const proyectosEspanol = todosLosProyectos.filter(proyecto => proyecto.filePath?.includes('/es/'));
+// Filtramos la lista para conservar únicamente los proyectos alojados en la subcarpeta '/en/'
+const proyectosIngles = todosLosProyectos.filter(proyecto => proyecto.filePath?.includes('/en/'));
 
 // Ordenamos secuencialmente los proyectos de menor a mayor basado en el número de fase
-const proyectosOrdenados = proyectosEspanol.sort((a, b) => a.data.fase - b.data.fase);
+const proyectosOrdenados = proyectosIngles.sort((a, b) => a.data.fase - b.data.fase);
 
-// Título general para el SEO de la pestaña del navegador en español
-const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
+// Título general para el SEO de la pestaña del navegador en inglés
+const pageTitle = "Hazael Urriola | Jamstack Ecosystem";
 ---
 
-<html lang="es">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -121,10 +121,10 @@ const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
 				border: 1px solid var(--border-color);
 			}
 
-			/* DISEÑO DINÁMICO DE BADGES SEGÚN ESTADO */
-			.Completado { background-color: rgba(35, 134, 54, 0.15); color: #3fb950; border-color: rgba(63, 185, 80, 0.3); }
-			.En-Progreso { background-color: rgba(187, 128, 9, 0.15); color: #d29922; border-color: rgba(210, 153, 34, 0.3); }
-			.Próximamente { background-color: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+			/* DISEÑO DINÁMICO DE BADGES SEGÚN ESTADO (SOPORTA TRADUCCIÓN INGLESA) */
+			.Completed, .Completado { background-color: rgba(35, 134, 54, 0.15); color: #3fb950; border-color: rgba(63, 185, 80, 0.3); }
+			.In-Progress, .En-Progreso { background-color: rgba(187, 128, 9, 0.15); color: #d29922; border-color: rgba(210, 153, 34, 0.3); }
+			.Upcoming, .Próximamente { background-color: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
 
 			h3 { margin: 0 0 8px 0; font-size: 1.3rem; }
 			.desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0; }
@@ -148,25 +148,25 @@ const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
 	<body>
 		<header>
 			<div class="header-text">
-				<h1>Ecosistema de Desarrollo</h1>
-				<p>Portafolio modularizado con Arquitectura Astro Content Layer e internacionalización nativa.</p>
+				<h1>Development Ecosystem</h1>
+				<p>Modular portfolio built with Astro Content Layer Architecture and native internationalization.</p>
 			</div>
 			<!-- Enlaces semánticos para cambiar de idioma de forma nativa por servidor (SEO Friendly) -->
 			<div class="lang-switcher">
-				<a href="/" class="lang-link active">ES</a>
-				<a href="/en" class="lang-link">EN</a>
+				<a href="/" class="lang-link">ES</a>
+				<a href="/en" class="lang-link active">EN</a>
 			</div>
 		</header>
 		<main>
 			<section class="bento-grid">
-				{/* Iteramos y renderizamos dinámicamente el listado filtrado en español */}
+				{/* Iteramos y renderizamos dinámicamente el listado filtrado en inglés */}
 				{proyectosOrdenados.map((proyecto) => (
 					<a href={proyecto.data.url} class="card">
 						<div>
 							<div class="card-header">
 								<span class="icon">{proyecto.data.icono}</span>
 								<span class={`badge ${proyecto.data.estado.replace(' ', '-')}`}>
-									Fase {proyecto.data.fase} • {proyecto.data.estado}
+									Phase {proyecto.data.fase} • {proyecto.data.estado}
 								</span>
 							</div>
 							<h3>{proyecto.data.titulo}</h3>

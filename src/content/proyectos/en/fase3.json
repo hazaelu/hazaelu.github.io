@@ -1,0 +1,10 @@
+{
+  "id": "fase-3-en",
+  "titulo": "Interactive SPA",
+  "descripcion": "Live demonstration showcasing multi-framework integration (Astro Islands) with React components, reactive state management, and real-time API hydration.",
+  "fase": 3,
+  "estado": "Próximamente",
+  "icono": "🚀",
+  "tecnologias": ["React", "Tailwind CSS", "APIs"],
+  "url": "/mi-app"
+}
