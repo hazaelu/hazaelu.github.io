@@ -1,6 +1,7 @@
 ---
 // 1. Importamos la función nativa de Astro para consumir datos de las colecciones configuradas
 import { getCollection } from 'astro:content';
+import Analytics from '../../components/Analytics.astro';
 
 /**
  * CONSULTA Y FILTRADO DE DATOS EN INGLÉS (BUENAS PRÁCTICAS SSG)
@@ -25,6 +26,7 @@ const pageTitle = "Hazael Urriola | Jamstack Ecosystem";
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
+		<Analytics /> 
 		<style>
 			/* VARIABLES GLOBALES DE DISEÑO NEUMÓRFICO/DARK */
 			:root {

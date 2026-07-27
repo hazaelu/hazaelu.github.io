@@ -1,0 +1,13 @@
+---
+// Componente de analíticas optimizado con tu ID real de Google
+---
+<!-- Google tag (gtag.js) -->
+<script async src="https://googletagmanager.com"></script>
+<script is:inline>
+  // 🟢 Mantenemos el código exacto de Google pero con la regla is:inline de Astro
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KVBRTZJZMZ'); // <-- Aquí va tu ID real (ej. G-12345ABCDE)
+</script>

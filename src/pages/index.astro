@@ -1,11 +1,16 @@
 ---
+// 👇 ESTA ES LA SECCIÓN SUPERIOR DE JAVASCRIPT (FRONTMATTER) 👇
+// Aquí importamos las funciones de Astro y los componentes que vamos a usar
 // 1. Importamos la función nativa de Astro para consumir datos de las colecciones configuradas
 import { getCollection } from 'astro:content';
 
+// 🟢 Traemos tu componente de Google Analytics
+import Analytics from '../components/Analytics.astro'; 
 /**
  * CONSULTA Y FILTRADO DE DATOS (BUENAS PRÁCTICAS SSG)
  * Consultamos la colección 'proyectos' de forma asíncrona en tiempo de compilación.
  */
+ // Ejecutamos la lógica para filtrar tus proyectos en español
 const todosLosProyectos = await getCollection('proyectos');
 
 // Filtramos la lista para conservar únicamente los proyectos alojados en la subcarpeta '/es/'
@@ -16,6 +21,7 @@ const proyectosOrdenados = proyectosEspanol.sort((a, b) => a.data.fase - b.data.
 
 // Título general para el SEO de la pestaña del navegador en español
 const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
+// 👆 AQUÍ TERMINA LA SECCIÓN SUPERIOR DE JAVASCRIPT (CIERRA CON ---) 👆
 ---
 
 <html lang="es">
@@ -25,6 +31,9 @@ const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
+		{/* 🟢 Inyectamos la etiqueta de Google Analytics justo aquí dentro del head */}
+		<Analytics /> 
+		
 		<style>
 			/* VARIABLES GLOBALES DE DISEÑO NEUMÓRFICO/DARK */
 			:root {
