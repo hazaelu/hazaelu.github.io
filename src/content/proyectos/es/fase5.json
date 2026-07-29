@@ -1,0 +1,10 @@
+{
+  "id": "fase-5-es",
+  "titulo": "Servidor VPN Propio",
+  "descripcion": "Despliegue de infraestructura de red privada virtual utilizando protocolos cifrados de alta seguridad para el control absoluto de tráfico.",
+  "fase": 5,
+  "estado": "Próximamente",
+  "icono": "🛡️",
+  "tecnologias": ["Linux", "Docker", "WireGuard"],
+  "url": "#"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "fase-6-es",
+  "titulo": "IA Ocular Preventiva",
+  "descripcion": "Aplicación de visión artificial que detecta la mirada y fatiga visual para modular automáticamente el estado de la pantalla y proteger la vista.",
+  "fase": 6,
+  "estado": "Próximamente",
+  "icono": "👁️",
+  "tecnologias": ["Python", "OpenCV", "TensorFlow"],
+  "url": "#"
+}

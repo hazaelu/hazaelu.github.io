@@ -1,0 +1,10 @@
+{
+  "id": "fase-5-en",
+  "titulo": "Custom VPN Server",
+  "descripcion": "Deployment of a virtual private network infrastructure utilizing high-security encrypted protocols for absolute traffic control.",
+  "fase": 5,
+  "estado": "Próximamente",
+  "icono": "🛡️",
+  "tecnologias": ["Linux", "Docker", "WireGuard"],
+  "url": "#"
+}
