@@ -7,6 +7,9 @@ import { glob } from 'astro/loaders';
  * CONFIGURACIÓN DE LA COLECCIÓN DE PROYECTOS (BILINGÜE)
  * Definimos las reglas estrictas de validación para los datos de nuestro portafolio.
  */
+/**
+ * COLECCIÓN 1: PROYECTOS (JSON)
+ */
 const proyectosCollection = defineCollection({
   // El 'loader' le indica a Astro con precisión milimétrica dónde y qué archivos buscar.
   // El patrón '**/*.json' busca de forma recursiva cualquier archivo JSON dentro de las subcarpetas /es y /en
@@ -30,7 +33,21 @@ const proyectosCollection = defineCollection({
     url: z.string()          // La ruta de redirección del proyecto debe ser un enlace de texto
   })
 });
-
+/**
+ * COLECCIÓN 2: BLOG AUTÓNOMO (MARKDOWN)
+ * Configuración nativa para escanear y validar artículos escritos en texto plano (.md)
+ */
+const blogCollection = defineCollection({
+  // El patrón '**/*.md' le ordena a Astro buscar de forma recursiva todos los archivos Markdown
+  loader: glob({ pattern: '**/*.md', base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),       // Título del artículo
+    pubDate: z.date(),       // Fecha de publicación (Zod validará que sea un formato de fecha real YYYY-MM-DD)
+    description: z.string(), // Resumen corto para SEO y tarjetas
+    author: z.string(),      // Nombre del escritor
+    tags: z.array(z.string()) // Etiquetas o categorías del post
+  })
+});
 /**
  * EXPORTACIÓN GLOBAL DE LAS COLECCIONES
  * Astro exige exportar un objeto llamado exactamente 'collections' en minúsculas.
@@ -38,4 +55,5 @@ const proyectosCollection = defineCollection({
  */
 export const collections = {
   proyectos: proyectosCollection,
+  blog: blogCollection, // 🟢 Registramos la nueva colección del blog
 };
