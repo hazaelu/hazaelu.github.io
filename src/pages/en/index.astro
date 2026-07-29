@@ -17,6 +17,15 @@ const proyectosOrdenados = proyectosIngles.sort((a, b) => a.data.fase - b.data.f
 
 // Título general para el SEO de la pestaña del navegador en inglés
 const pageTitle = "Hazael Urriola | Jamstack Ecosystem";
+/**
+ * 🟢 DICCIONARIO DE MAPEO DE DATOS (i18n Visual)
+ * Traduce la variable interna del JSON al texto final que verá el reclutador.
+ */
+const traductorEstado = {
+  "Completado": "Completed",
+  "En Progreso": "In Progress",
+  "Próximamente": "Upcoming"
+};
 ---
 
 <html lang="en">
@@ -168,7 +177,7 @@ const pageTitle = "Hazael Urriola | Jamstack Ecosystem";
 							<div class="card-header">
 								<span class="icon">{proyecto.data.icono}</span>
 								<span class={`badge ${proyecto.data.estado.replace(' ', '-')}`}>
-									Phase {proyecto.data.fase} • {proyecto.data.estado}
+  									Phase {proyecto.data.fase} • {traductorEstado[proyecto.data.estado]}
 								</span>
 							</div>
 							<h3>{proyecto.data.titulo}</h3>
