@@ -6,5 +6,5 @@
   "estado": "Completado",
   "icono": "✍️",
   "tecnologias": ["Astro", "Markdown", "Jamstack"],
-  "url": "/blog"
+  "url": "/en/blog"
 }

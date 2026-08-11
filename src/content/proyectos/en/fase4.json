@@ -6,5 +6,5 @@
   "estado": "Próximamente",
   "icono": "📚",
   "tecnologias": ["Docusaurus", "MDX", "Algolia"],
-  "url": "/docs"
+  "url": "/en/docs"
 }
