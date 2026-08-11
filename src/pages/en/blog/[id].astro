@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '../../../layouts/BlogLayout.astro';
+
+/**
+ * GENERACIÓN DE RUTAS ESTÁTICAS PARA INGLÉS
+ */
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  // Filtramos para conservar únicamente las entradas escritas en inglés
+  const postsIngles = posts.filter(post => post.filePath?.includes('/en/'));
+  
+  return postsIngles.map(post => {
+    const idLimpio = post.id.split('/').pop()?.replace('.md', '');
+    return {
+      params: { id: idLimpio },
+      props: { post }
+    };
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogLayout frontmatter={post.data}>
+  <Content />
+</BlogLayout>

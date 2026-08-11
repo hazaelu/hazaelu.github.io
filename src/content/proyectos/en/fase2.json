@@ -3,7 +3,7 @@
   "titulo": "Autonomous Blog",
   "descripcion": "Static Site Generation (SSG) architecture driven by local Markdown parsing, zero-database overhead, and optimized content delivery pipelines.",
   "fase": 2,
-  "estado": "En Progreso",
+  "estado": "Completado",
   "icono": "✍️",
   "tecnologias": ["Astro", "Markdown", "Jamstack"],
   "url": "/blog"

@@ -1,0 +1,37 @@
+---
+// 1. Importamos las herramientas nativas del Content Layer de Astro
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+/**
+ * GENERACIÓN DE RUTAS ESTÁTICAS (OBLIGATORIO EN SSG)
+ * La función 'getStaticPaths' le dice a Astro exactamente qué páginas debe fabricar
+ * en segundo plano durante el proceso de compilación en GitHub Actions.
+ */
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  // Filtramos para conservar únicamente las entradas escritas en español
+  const postsEspanol = posts.filter(post => post.filePath?.includes('/es/'));
+  
+  // Retornamos un arreglo mapeado. Cada objeto debe contener los parámetros ('params') de la URL
+  return postsEspanol.map(post => {
+    // Extraemos el nombre limpio del archivo para usarlo como ID en la URL (slug)
+    const idLimpio = post.id.split('/').pop()?.replace('.md', '');
+    return {
+      params: { id: idLimpio }, // La URL final será /blog/nombre-del-archivo
+      props: { post }           // Pasamos los datos del post como propiedades
+    };
+  });
+}
+
+// 2. Recuperamos las propiedades del artículo enviado por 'getStaticPaths'
+const { post } = Astro.props;
+
+// 3. Renderizamos el contenido del Markdown. 'Content' se convierte en un componente HTML nativo
+const { Content } = await render(post);
+---
+
+{/* 🟢 ENVOLVEMOS EL CONTENIDO EN TU LAYOUT COMÚN PARA QUE ADOPTE EL MODO OSCURO */}
+<BlogLayout frontmatter={post.data}>
+  <Content />
+</BlogLayout>

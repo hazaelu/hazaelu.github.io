@@ -1,0 +1,117 @@
+---
+// 1. Importamos la función nativa para consultar colecciones de Astro
+import { getCollection } from 'astro:content';
+
+/**
+ * CONSULTA Y FILTRADO DE ARTÍCULOS (SSG)
+ * Traemos la colección 'blog' de forma asíncrona en tiempo de compilación.
+ */
+const todosLosPosts = await getCollection('blog');
+
+// Filtramos para conservar únicamente los artículos de la subcarpeta en español (/es/)
+const postsEspanol = todosLosPosts.filter(post => post.filePath?.includes('/es/'));
+
+// Ordenamos las publicaciones por fecha: la más reciente aparecerá primero
+const postsOrdenados = postsEspanol.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const pageTitle = "Mi Blog Jamstack | Hazael Urriola";
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{pageTitle}</title>
+		<style>
+			:root {
+				--bg-main: #0a0e14;
+				--bg-card: #151b23;
+				--border-color: #30363d;
+				--text-primary: #f0f6fc;
+				--text-secondary: #8b949e;
+				--accent: #58a6ff;
+			}
+
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				background-color: var(--bg-main);
+				color: var(--text-primary);
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 40px 20px;
+			}
+
+			.back-link { color: var(--accent); text-decoration: none; font-size: 0.95rem; }
+			.back-link:hover { text-decoration: underline; }
+
+			header {
+				margin: 30px 0 40px 0;
+				border-bottom: 1px solid var(--border-color);
+				padding-bottom: 20px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+			}
+
+			h1 { font-size: 2.2rem; margin: 0 0 5px 0; font-weight: 800; }
+			header p { color: var(--text-secondary); margin: 0; }
+
+			.lang-switcher a {
+				color: var(--text-secondary);
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 0.9rem;
+			}
+			.lang-switcher a:hover { color: var(--accent); }
+
+			/* LISTADO DE ARTÍCULOS */
+			.posts-list { display: flex; flex-direction: column; gap: 25px; }
+			
+			.post-card {
+				background-color: var(--bg-card);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				padding: 24px;
+				text-decoration: none;
+				color: inherit;
+				transition: border-color 0.2s, transform 0.2s;
+			}
+			.post-card:hover {
+				border-color: var(--accent);
+				transform: translateY(-2px);
+			}
+
+			.post-meta { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; }
+			h2 { margin: 0 0 10px 0; font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
+			.desc { color: var(--text-secondary); margin: 0; line-height: 1.5; }
+		</style>
+	</head>
+	<body>
+		<a href="/" class="back-link">← Volver al Portafolio</a>
+		
+		<header>
+			<div>
+				<h1>Artículos Publicados</h1>
+				<p>Bitácora de desarrollo y aprendizaje de ingeniería de software.</p>
+			</div>
+			<div class="lang-switcher">
+				<a href="/en/blog">🇺🇸 English Version</a>
+			</div>
+		</header>
+
+		<main class="posts-list">
+			{postsOrdenados.map((post) => (
+				/* 🟢 Enlazamos dinámicamente usando la propiedad nativa id de Astro v7 */
+				<a href={`/blog/${post.id.split('/').pop()?.replace('.md', '')}`} class="post-card">
+					<div class="post-meta">
+						<span>📅 {new Date(post.data.pubDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+						<span> • ✍️ {post.data.author}</span>
+					</div>
+					<h2>{post.data.title}</h2>
+					<p class="desc">{post.data.description}</p>
+				</a>
+			))}
+		</main>
+	</body>
+</html>

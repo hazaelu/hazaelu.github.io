@@ -1,0 +1,84 @@
+---
+// 1. Recibimos los metadatos (Frontmatter) del archivo Markdown de forma automática a través de 'Astro.props'
+const { frontmatter } = Astro.props;
+
+// Detectamos si el artículo actual está en la ruta de inglés para adaptar el SEO
+const isEn = Astro.url.pathname.includes('/en/');
+const backText = isEn ? "← Back to Portfolio" : "← Volver al Portafolio";
+const backUrl = isEn ? "/en" : "/";
+---
+
+<html lang={isEn ? "en" : "es"}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{frontmatter.title} | Blog</title>
+		<style>
+			:root {
+				--bg-main: #0a0e14;
+				--bg-card: #151b23;
+				--border-color: #30363d;
+				--text-primary: #f0f6fc;
+				--text-secondary: #8b949e;
+				--accent: #58a6ff;
+			}
+
+			body {
+				font-family: Georgia, serif; /* Fuente serif ideal para lectura de artículos */
+				background-color: var(--bg-main);
+				color: var(--text-primary);
+				max-width: 700px; /* Ancho optimizado para la comprensión lectora */
+				margin: 0 auto;
+				padding: 40px 20px;
+				line-height: 1.8; /* Espaciado entre líneas para descanso visual */
+			}
+
+			.back-link {
+				font-family: system-ui, sans-serif;
+				color: var(--accent);
+				text-decoration: none;
+				font-size: 0.95rem;
+				display: inline-block;
+				margin-bottom: 30px;
+			}
+			.back-link:hover { text-decoration: underline; }
+
+			header {
+				border-bottom: 1px solid var(--border-color);
+				padding-bottom: 20px;
+				margin-bottom: 40px;
+				font-family: system-ui, sans-serif;
+			}
+
+			h1 { font-size: 2.5rem; line-height: 1.2; margin: 0 0 15px 0; font-family: system-ui, sans-serif; font-weight: 800; }
+			.meta { color: var(--text-secondary); font-size: 0.95rem; display: flex; gap: 15px; }
+
+			/* Estilos automáticos para el contenido que viene del Markdown */
+			article :global(h2) { font-family: system-ui, sans-serif; font-size: 1.8rem; margin: 40px 0 20px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+			article :global(p) { font-size: 1.15rem; margin-bottom: 25px; color: #e6edf3; }
+			article :global(ol), article :global(ul) { margin-bottom: 25px; padding-left: 20px; font-size: 1.15rem; }
+			article :global(li) { margin-bottom: 10px; }
+			article :global(code) { background-color: rgba(139, 148, 158, 0.15); padding: 3px 6px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; color: #ff7b72; }
+		</style>
+	</head>
+	<body>
+		<a href={backUrl} class="back-link">{backText}</a>
+		
+		<header>
+			<h1>{frontmatter.title}</h1>
+			<div class="meta">
+				<span>✍️ {frontmatter.author}</span>
+				{/* Damos formato local a la fecha cargada por Zod */}
+				<span>📅 {new Date(frontmatter.pubDate).toLocaleDateString(isEn ? 'en-US' : 'es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+			</div>
+		</header>
+
+		<main>
+			<article>
+				{/* 🟢 LA ETIQUETA SLOT INYECTA AQUÍ TODO EL TEXTO DEL ARCHIVO MARKDOWN */}
+				<slot />
+			</article>
+		</main>
+	</body>
+</html>
