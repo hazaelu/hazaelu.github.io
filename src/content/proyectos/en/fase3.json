@@ -1,10 +1,10 @@
 {
   "id": "fase-3-en",
-  "titulo": "Interactive SPA",
-  "descripcion": "Live demonstration showcasing multi-framework integration (Astro Islands) with React components, reactive state management, and real-time API hydration.",
+  "titulo": "Apps & Simulations",
+  "descripcion": "Interactive application hub and corporate simulations (such as Commonwealth Bank and Forage) driven by dynamic React components.",
   "fase": 3,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "🚀",
-  "tecnologias": ["React", "Tailwind CSS", "APIs"],
-  "url": "/en/mi-app"
+  "tecnologias": ["React", "Tailwind CSS", "TypeScript"],
+  "url": "/en/commonwealth-bank-simulation"
 }

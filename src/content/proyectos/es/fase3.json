@@ -1,10 +1,10 @@
 {
   "id": "fase-3",
-  "titulo": "App Interactiva",
-  "descripcion": "Demostración en vivo integrando frameworks SPA exigidos en el mercado.",
+  "titulo": "Aplicaciones & Simulaciones",
+  "descripcion": "Hub de aplicaciones interactivas y simulaciones corporativas (como Commonwealth Bank y Forage) desarrolladas con componentes React.",
   "fase": 3,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "🚀",
-  "tecnologias": ["React", "Tailwind CSS", "APIs"],
-  "url": "/mi-app"
+  "tecnologias": ["React", "Tailwind CSS", "TypeScript"],
+  "url": "/commonwealth-bank-simulation"
 }
