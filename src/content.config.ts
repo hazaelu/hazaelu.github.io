@@ -8,7 +8,7 @@ import { glob } from 'astro/loaders';
  * Definimos las reglas estrictas de validación para los datos de nuestro portafolio.
  */
 /**
- * COLECCIÓN 1: PROYECTOS (JSON)
+ * COLECCIÓN 1: : Proyectos Principales (Bento de la Home)
  */
 const proyectosCollection = defineCollection({
   // El 'loader' le indica a Astro con precisión milimétrica dónde y qué archivos buscar.
@@ -48,12 +48,28 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()) // Etiquetas o categorías del post
   })
 });
+
+// 🟢 Colección 3: Sub-Bento de Simulaciones de Forage (Nueva)
+const simulacionesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: "./src/content/simulaciones" }),
+  schema: z.object({
+    id: z.string(),
+    titulo: z.string(),
+    empresa: z.string(),
+    descripcion: z.string(),
+    estado: z.enum(['Completado', 'En Progreso']),
+    icono: z.string(),
+    tecnologias: z.array(z.string()),
+    url: z.string() // Aquí irá tu repo: ://github.com...
+  })
+});
 /**
  * EXPORTACIÓN GLOBAL DE LAS COLECCIONES
  * Astro exige exportar un objeto llamado exactamente 'collections' en minúsculas.
  * Al asignarle la clave 'proyectos', el framework sincroniza las rutas automáticas.
  */
 export const collections = {
-  proyectos: proyectosCollection,
+  proyectos: proyectosCollection, // Registro de la colección de proyectos
   blog: blogCollection, // 🟢 Registramos la nueva colección del blog
+  simulaciones: simulacionesCollection, // Registrada con éxito
 };

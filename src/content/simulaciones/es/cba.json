@@ -1,0 +1,10 @@
+{
+  "id": "sim-cba-es",
+  "titulo": "Simulador de Ciberseguridad",
+  "empresa": "Commonwealth Bank",
+  "descripcion": "Portal desarrollado bajo las guías de marca de CBA, enfocado en mitigar Phishing y ataques MitM mediante propuestas de hosting seguro.",
+  "estado": "Completado",
+  "icono": "🏦",
+  "tecnologias": ["HTML5", "CSS3", "Security Guidelines"],
+  "url": "https://github.com/hazaelu/commonwealth-bank-simulation"
+}

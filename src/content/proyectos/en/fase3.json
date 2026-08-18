@@ -1,10 +1,10 @@
 {
-  "id": "fase-3-en",
+  "id": "fase-3-global-en",
   "titulo": "Apps & Simulations",
-  "descripcion": "Interactive application hub and corporate simulations (such as Commonwealth Bank and Forage) driven by dynamic React components.",
+  "descripcion": "Interactive hub aggregating my complex web applications and software engineering simulations (such as Forage and Commonwealth Bank).",
   "fase": 3,
   "estado": "En Progreso",
   "icono": "🚀",
-  "tecnologias": ["React", "Tailwind CSS", "TypeScript"],
-  "url": "/en/commonwealth-bank-simulation"
+  "tecnologias": ["React", "Vite", "TypeScript"],
+  "url": "/en/simulaciones"
 }
