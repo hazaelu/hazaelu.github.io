@@ -3,7 +3,7 @@
   "titulo": "Documentación Técnica",
   "descripcion": "Manual de usuario centralizado e interactivo maquetado en MDX para la auditoría de la arquitectura de código abierto de este ecosistema.",
   "fase": 4,
-  "estado": "En Progreso",
+  "estado": "Completado",
   "icono": "📚",
   "tecnologias": ["MDX", "Astro v7", "Technical Writing"],
   "url": "/docs"

@@ -3,7 +3,7 @@
   "titulo": "Technical Docs",
   "descripcion": "Centralized and interactive documentation hub built with MDX for deep code auditing and architectural breakdowns of this ecosystem.",
   "fase": 4,
-  "estado": "En Progreso",
+  "estado": "Completado",
   "icono": "📚",
   "tecnologias": ["MDX", "Astro v7", "Technical Writing"],
   "url": "/en/docs"
