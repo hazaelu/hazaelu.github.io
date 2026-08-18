@@ -1,10 +1,10 @@
 {
   "id": "fase-4",
   "titulo": "Documentación Técnica",
-  "descripcion": "Manual de usuario interactivo y centralizado para auditoría de código abierto.",
+  "descripcion": "Manual de usuario centralizado e interactivo maquetado en MDX para la auditoría de la arquitectura de código abierto de este ecosistema.",
   "fase": 4,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "📚",
-  "tecnologias": ["Docusaurus", "MDX", "Algolia"],
+  "tecnologias": ["MDX", "Astro v7", "Technical Writing"],
   "url": "/docs"
 }

@@ -49,7 +49,7 @@ const blogCollection = defineCollection({
   })
 });
 
-// 🟢 Colección 3: Sub-Bento de Simulaciones de Forage (Nueva)
+// 🟢 Colección 3: Sub-Bento de Simulaciones de Forage /Hub de Simulaciones (JSON)
 const simulacionesCollection = defineCollection({
   loader: glob({ pattern: '**/*.json', base: "./src/content/simulaciones" }),
   schema: z.object({
@@ -63,6 +63,18 @@ const simulacionesCollection = defineCollection({
     url: z.string() // Aquí irá tu repo: ://github.com...
   })
 });
+// 🟢 Colección 4: Documentación Técnica Avanzada (MDX)
+const docsCollection = defineCollection({
+  // El patrón '**/*.mdx' le ordena a Astro escanear y validar archivos MDX estructurados
+  loader: glob({ pattern: '**/*.mdx', base: "./src/content/docs" }),
+  schema: z.object({
+    title: z.string(),          // Título de la guía técnica
+    section: z.string(),        // Categoría (ej. "Instalación", "Arquitectura")
+    order: z.number(),          // Índice para ordenar secuencialmente los manuales
+    description: z.string()     // Resumen corto para indexación SEO
+  })
+});
+
 /**
  * EXPORTACIÓN GLOBAL DE LAS COLECCIONES
  * Astro exige exportar un objeto llamado exactamente 'collections' en minúsculas.
@@ -72,4 +84,5 @@ export const collections = {
   proyectos: proyectosCollection, // Registro de la colección de proyectos
   blog: blogCollection, // 🟢 Registramos la nueva colección del blog
   simulaciones: simulacionesCollection, // Registrada con éxito
+  docs: docsCollection // 🟢 Registramos la nueva colección de documentación
 };

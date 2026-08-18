@@ -1,0 +1,36 @@
+---
+title: "Guía de Inicialización"
+section: "Primeros Pasos"
+order: 1
+description: "Manual técnico para clonar y levantar este ecosistema Jamstack en un entorno de desarrollo en la nube."
+---
+
+# Configuración del Entorno de Desarrollo
+
+Este manual describe el proceso estricto para inicializar la arquitectura de código abierto de este ecosistema. Al estar diseñado bajo la filosofía **Jamstack**, no requiere configuraciones de bases de datos locales pesadas.
+
+## 🛠️ Requisitos de Infraestructura
+- **Runtime:** Node.js v24 o superior
+- **Package Manager:** NPM v11 o superior
+- **Framework:** Astro v7 (Content Layer API)
+
+## 🚀 Despliegue en 3 Pasos (Consola Bash)
+
+Para clonar e inspeccionar este proyecto de manera segura, ejecute la siguiente secuencia de comandos en su terminal:
+
+1. **Clonar el repositorio remoto:**
+   ```bash
+   git clone https://github.com
+   ```
+
+2. **Instalar dependencias aisladas:**
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar el servidor de pruebas en la nube:**
+   ```bash
+   npm run dev
+   ```
+
+El sistema compilará los archivos estáticos en tiempo real y habilitará un puerto local seguro (usualmente `http://localhost:4321/`) para la auditoría de las tarjetas Bento Grid.

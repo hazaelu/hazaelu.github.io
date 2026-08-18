@@ -1,10 +1,10 @@
 {
   "id": "fase-4-en",
   "titulo": "Technical Docs",
-  "descripcion": "Centralized, searchable, and interactive documentation hub built with MDX for deep code auditing and architectural breakdowns.",
+  "descripcion": "Centralized and interactive documentation hub built with MDX for deep code auditing and architectural breakdowns of this ecosystem.",
   "fase": 4,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "📚",
-  "tecnologias": ["Docusaurus", "MDX", "Algolia"],
+  "tecnologias": ["MDX", "Astro v7", "Technical Writing"],
   "url": "/en/docs"
 }
