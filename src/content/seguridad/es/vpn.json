@@ -1,0 +1,9 @@
+{
+  "id": "sub-vpn-es",
+  "titulo": "Servidor VPN con WireGuard",
+  "descripcion": "Despliegue de un nodo de red privada virtual cifrada sobre contenedores Docker en Linux para auditoría y control absoluto de tráfico.",
+  "estado": "En Progreso",
+  "icono": "🛜",
+  "tecnologias": ["Linux", "Docker", "WireGuard"],
+  "url": "https://github.com"
+}

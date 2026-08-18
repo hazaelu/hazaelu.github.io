@@ -1,10 +1,10 @@
 {
-  "id": "fase-5-en",
-  "titulo": "Custom VPN Server",
-  "descripcion": "Deployment of a virtual private network infrastructure utilizing high-security encrypted protocols for absolute traffic control.",
+  "id": "fase-5-global-en",
+  "titulo": "Information Security",
+  "descripcion": "Network infrastructure and systems auditing hub, focused on secure deployments and end-to-end traffic encryption.",
   "fase": 5,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "🛡️",
   "tecnologias": ["Linux", "Docker", "WireGuard"],
-  "url": "#"
+  "url": "/en/seguridad"
 }

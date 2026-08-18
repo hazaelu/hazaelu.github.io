@@ -1,10 +1,10 @@
 {
-  "id": "fase-6-en",
-  "titulo": "Preventive Eye AI",
-  "descripcion": "Computer vision application that detects gaze and eye strain to automatically modulate screen parameters and protect human vision.",
+  "id": "fase-6-global-en",
+  "titulo": "Artificial Intelligence",
+  "descripcion": "Laboratory for predictive solutions and interactive logical models utilizing computer vision and machine learning algorithms.",
   "fase": 6,
   "estado": "Próximamente",
-  "icono": "👁️",
+  "icono": "🤖",
   "tecnologias": ["Python", "OpenCV", "TensorFlow"],
-  "url": "#"
+  "url": "/en/ia"
 }

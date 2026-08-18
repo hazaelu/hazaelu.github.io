@@ -1,0 +1,9 @@
+{
+  "id": "sub-ocular-en",
+  "titulo": "Preventive Eye AI",
+  "descripcion": "Computer vision algorithm focused on occupational health, detecting visual fatigue through blinking to adjust monitor parameters.",
+  "estado": "Próximamente",
+  "icono": "👁️",
+  "tecnologias": ["Python", "OpenCV", "TensorFlow"],
+  "url": "https://github.com"
+}

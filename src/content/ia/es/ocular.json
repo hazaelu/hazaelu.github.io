@@ -1,0 +1,9 @@
+{
+  "id": "sub-ocular-es",
+  "titulo": "IA Ocular Preventiva",
+  "descripcion": "Algoritmo de visión artificial enfocado en la salud laboral, detectando fatiga visual mediante parpadeos para modular los parámetros del monitor.",
+  "estado": "Próximamente",
+  "icono": "👁️",
+  "tecnologias": ["Python", "OpenCV", "TensorFlow"],
+  "url": "https://github.com"
+}

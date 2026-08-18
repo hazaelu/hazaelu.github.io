@@ -74,7 +74,33 @@ const docsCollection = defineCollection({
     description: z.string()     // Resumen corto para indexación SEO
   })
 });
+// 🟢 Colección 4: Sub-Bento de Seguridad Informática
+const seguridadCollection = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: "./src/content/seguridad" }),
+  schema: z.object({
+    id: z.string(),
+    titulo: z.string(),
+    descripcion: z.string(),
+    estado: z.enum(['Completado', 'En Progreso', 'Próximamente']),
+    icono: z.string(),
+    tecnologias: z.array(z.string()),
+    url: z.string()
+  })
+});
 
+// 🟢 Colección 5: Sub-Bento de Inteligencia Artificial
+const iaCollection = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: "./src/content/ia" }),
+  schema: z.object({
+    id: z.string(),
+    titulo: z.string(),
+    descripcion: z.string(),
+    estado: z.enum(['Completado', 'En Progreso', 'Próximamente']),
+    icono: z.string(),
+    tecnologias: z.array(z.string()),
+    url: z.string()
+  })
+});
 /**
  * EXPORTACIÓN GLOBAL DE LAS COLECCIONES
  * Astro exige exportar un objeto llamado exactamente 'collections' en minúsculas.
@@ -84,5 +110,7 @@ export const collections = {
   proyectos: proyectosCollection, // Registro de la colección de proyectos
   blog: blogCollection, // 🟢 Registramos la nueva colección del blog
   simulaciones: simulacionesCollection, // Registrada con éxito
-  docs: docsCollection // 🟢 Registramos la nueva colección de documentación
+  docs: docsCollection, // 🟢 Registramos la nueva colección de documentación
+  seguridad: seguridadCollection, // Registrada con éxito
+  ia: iaCollection,    // Registrada con éxito
 };
