@@ -1,8 +1,18 @@
 ---
+// 1. Importamos la función nativa y el tipo de dato estricto desde el núcleo de Astro
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
+/**
+ * CONSULTA Y FILTRADO DE SIMULACIONES CON TIPADO ESTRICTO
+ */
+// Consultamos la colección 'simulaciones' de forma asíncrona
 const todasLasSimulaciones = await getCollection('simulaciones');
-const simulacionesEspanol = todasLasLasSimulaciones.filter(s => s.filePath?.includes('/es/'));
+
+// 🟢 SOLUCIÓN ts(2552) y ts(7006): Corregimos el nombre de la variable y tipamos el parámetro 's'
+const simulacionesEspanol = todasLasSimulaciones.filter((s: CollectionEntry<'simulaciones'>) => 
+	s.filePath?.includes('/es/')
+);
 
 const pageTitle = "Hub de Simulaciones | Hazael Urriola";
 ---
@@ -50,7 +60,6 @@ const pageTitle = "Hub de Simulaciones | Hazael Urriola";
 			.lang-switcher a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
 			.lang-switcher a:hover { color: var(--accent); }
 
-			/* SUB-BENTO GRID EXCLUSIVO DE SIMULACIONES */
 			.bento-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -98,8 +107,9 @@ const pageTitle = "Hub de Simulaciones | Hazael Urriola";
 
 		<main>
 			<section class="bento-grid">
-				{simulacionesEspanol.map((sim) => (
-					<a href={sim.data.url} target="_blank" class="card">
+				{/* 🟢 SOLUCIÓN ts(7006): Declaramos explícitamente el tipo de 'sim' como CollectionEntry */}
+				{simulacionesEspanol.map((sim: CollectionEntry<'simulaciones'>) => (
+					<a href={sim.data.url} target="_blank" rel="noopener noreferrer" class="card">
 						<div>
 							<div class="card-header">
 								<span class="icon">{sim.data.icono}</span>
@@ -110,7 +120,8 @@ const pageTitle = "Hub de Simulaciones | Hazael Urriola";
 							<p class="desc">{sim.data.descripcion}</p>
 						</div>
 						<div class="tech-stack">
-							{sim.data.tecnologias.map((tech) => (
+							{/* 🟢 SOLUCIÓN ts(7006): Tipamos el parámetro de texto puro 'tech' como string */}
+							{sim.data.tecnologias.map((tech: string) => (
 								<span class="tech-tag">{tech}</span>
 							))}
 						</div>
