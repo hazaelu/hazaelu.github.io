@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+const todosLosProyectos = await getCollection('ia');
+const iaIngles = todosLosProyectos.filter((s: CollectionEntry<'ia'>) => 
+	s.filePath?.includes('/en/')
+);
+
+const pageTitle = "AI Laboratory | Hazael Urriola";
+
+const traductorEstado = {
+  "Completado": "Completed",
+  "En Progreso": "In Progress",
+  "Próximamente": "Upcoming"
+};
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{pageTitle}</title>
+		<style>
+			:root { --bg-main: #0a0e14; --bg-card: #151b23; --border-color: #30363d; --text-primary: #f0f6fc; --text-secondary: #8b949e; --accent: #58a6ff; }
+			body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg-main); color: var(--text-primary); max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+			.back-link { color: var(--accent); text-decoration: none; font-size: 0.95rem; }
+			.back-link:hover { text-decoration: underline; }
+			header { margin: 20px 0 40px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+			h1 { font-size: 2.2rem; margin: 0 0 5px 0; font-weight: 800; }
+			header p { color: var(--text-secondary); margin: 0; }
+			.lang-switcher a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+			.lang-switcher a:hover { color: var(--accent); }
+			.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+			.card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, border-color 0.2s ease; text-decoration: none; color: inherit; }
+			.card:hover { transform: translateY(-4px); border-color: var(--accent); }
+			.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+			.icon { font-size: 2rem; }
+			.badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 20px; font-weight: 600; border: 1px solid var(--border-color); }
+			.Próximamente { background-color: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+			h3 { margin: 0 0 8px 0; font-size: 1.3rem; }
+			.desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0; }
+			.tech-stack { display: flex; gap: 8px; flex-wrap: wrap; }
+			.tech-tag { background-color: rgba(139, 148, 158, 0.1); color: var(--accent); font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(88, 166, 255, 0.1); }
+		</style>
+	</head>
+	<body>
+		<a href="/en" class="back-link">← Back to Portfolio</a>
+
+		<header>
+			<div>
+				<h1>AI Laboratory</h1>
+				<p>Predictive models, neural networks, and computer vision oriented to automation.</p>
+			</div>
+			<div class="lang-switcher">
+				<a href="/ia">🇪🇸 Spanish Version</a>
+			</div>
+		</header>
+
+		<main>
+			<section class="bento-grid">
+				{iaIngles.map((proj: CollectionEntry<'ia'>) => (
+					<a href={proj.data.url} target="_blank" rel="noopener noreferrer" class="card">
+						<div>
+							<div class="card-header">
+								<span class="icon">{proj.data.icono}</span>
+								<span class={`badge ${proj.data.estado.replace(' ', '-')}`}>{traductorEstado[proj.data.estado]}</span>
+							</div>
+							<h3>{proj.data.titulo}</h3>
+							<p class="desc">{proj.data.descripcion}</p>
+						</div>
+						<div class="tech-stack">
+							{proj.data.tecnologias.map((tech: string) => (
+								<span class="tech-tag">{tech}</span>
+							))}
+						</div>
+					</a>
+				))}
+			</section>
+		</main>
+	</body>
+</html>
