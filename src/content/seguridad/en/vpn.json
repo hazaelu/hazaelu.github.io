@@ -5,5 +5,5 @@
   "estado": "En Progreso",
   "icono": "🛜",
   "tecnologias": ["Linux", "Docker", "WireGuard"],
-  "url": "https://github.com"
+  "url": "https://github.com/hazaelu/vpn-wireguard-server"
 }
