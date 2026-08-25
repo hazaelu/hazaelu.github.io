@@ -3,7 +3,7 @@
   "titulo": "Inteligencia Artificial",
   "descripcion": "Laboratorio de soluciones predictivas y modelos lógicos interactivos utilizando algoritmos de visión artificial y machine learning.",
   "fase": 6,
-  "estado": "Próximamente",
+  "estado": "En Progreso",
   "icono": "🤖",
   "tecnologias": ["Python", "OpenCV", "TensorFlow"],
   "url": "/ia"
