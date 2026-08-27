@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 
 import mdx from '@astrojs/mdx';
 
+import tailwindcss from '@tailwindcss/vite';
+
 // https://astro.build
 export default defineConfig({
   site: 'https://github.io',
@@ -16,5 +18,9 @@ export default defineConfig({
     }
   },
 
-  integrations: [mdx()]
+  integrations: [mdx()],
+
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });

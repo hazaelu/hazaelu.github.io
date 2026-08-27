@@ -1,189 +1,90 @@
 ---
-// 👇 ESTA ES LA SECCIÓN SUPERIOR DE JAVASCRIPT (FRONTMATTER) 👇
-// Aquí importamos las funciones de Astro y los componentes que vamos a usar
-// 1. Importamos la función nativa de Astro para consumir datos de las colecciones configuradas
+// 👇 SECCIÓN SUPERIOR DE JAVASCRIPT REFACTORIZADA PARA TAILWIND V4 👇
 import { getCollection } from 'astro:content';
-
-// 🟢 Traemos tu componente de Google Analytics
 import Analytics from '../components/Analytics.astro'; 
-/**
- * CONSULTA Y FILTRADO DE DATOS (BUENAS PRÁCTICAS SSG)
- * Consultamos la colección 'proyectos' de forma asíncrona en tiempo de compilación.
- */
- // Ejecutamos la lógica para filtrar tus proyectos en español
+
+// 🟢 Inyección obligatoria del mapa de estilos utilitarios de Tailwind v4
+import '../styles/global.css';
+
 const todosLosProyectos = await getCollection('proyectos');
-
-// Filtramos la lista para conservar únicamente los proyectos alojados en la subcarpeta '/es/'
 const proyectosEspanol = todosLosProyectos.filter(proyecto => proyecto.filePath?.includes('/es/'));
-
-// Ordenamos secuencialmente los proyectos de menor a mayor basado en el número de fase
 const proyectosOrdenados = proyectosEspanol.sort((a, b) => a.data.fase - b.data.fase);
 
-// Título general para el SEO de la pestaña del navegador en español
 const pageTitle = "Hazael Urriola | Ecosistema Jamstack";
-// 👆 AQUÍ TERMINA LA SECCIÓN SUPERIOR DE JAVASCRIPT (CIERRA CON ---) 👆
 ---
 
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
-		{/* 🟢 Inyectamos la etiqueta de Google Analytics justo aquí dentro del head */}
 		<Analytics /> 
-		
-		<style>
-			/* VARIABLES GLOBALES DE DISEÑO NEUMÓRFICO/DARK */
-			:root {
-				--bg-main: #0a0e14;
-				--bg-card: #151b23;
-				--border-color: #30363d;
-				--text-primary: #f0f6fc;
-				--text-secondary: #8b949e;
-				--accent: #58a6ff;
-			}
-
-			body {
-				font-family: system-ui, -apple-system, sans-serif;
-				background-color: var(--bg-main);
-				color: var(--text-primary);
-				max-width: 1000px;
-				margin: 0 auto;
-				padding: 40px 20px;
-			}
-
-			header {
-				margin-bottom: 40px;
-				border-bottom: 1px solid var(--border-color);
-				padding-bottom: 20px;
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-			}
-
-			h1 { font-size: 2.5rem; margin: 0 0 10px 0; font-weight: 800; }
-			.header-text p { color: var(--text-secondary); font-size: 1.1rem; margin: 0; }
-
-			/* CONMUTADOR DE IDIOMAS (INTERNACIONAlIZACIÓN VISUAL) */
-			.lang-switcher {
-				display: flex;
-				gap: 8px;
-			}
-			.lang-link {
-				background-color: var(--bg-card);
-				border: 1px solid var(--border-color);
-				color: var(--text-primary);
-				padding: 6px 12px;
-				border-radius: 6px;
-				text-decoration: none;
-				font-size: 0.85rem;
-				font-weight: 600;
-				transition: background-color 0.2s;
-			}
-			.lang-link:hover, .lang-link.active {
-				background-color: rgba(88, 166, 255, 0.1);
-				border-color: var(--accent);
-				color: var(--accent);
-			}
-
-			/* ARQUITECTURA BENTO GRID */
-			.bento-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 20px;
-			}
-
-			.card {
-				background-color: var(--bg-card);
-				border: 1px solid var(--border-color);
-				border-radius: 12px;
-				padding: 24px;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				transition: transform 0.2s ease, border-color 0.2s ease;
-				text-decoration: none;
-				color: inherit;
-			}
-
-			.card:hover {
-				transform: translateY(-4px);
-				border-color: var(--accent);
-			}
-
-			.card-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				margin-bottom: 15px;
-			}
-
-			.icon { font-size: 2rem; }
-
-			.badge {
-				font-size: 0.75rem;
-				padding: 4px 8px;
-				border-radius: 20px;
-				font-weight: 600;
-				border: 1px solid var(--border-color);
-			}
-
-			/* DISEÑO DINÁMICO DE BADGES SEGÚN ESTADO */
-			.Completado { background-color: rgba(35, 134, 54, 0.15); color: #3fb950; border-color: rgba(63, 185, 80, 0.3); }
-			.En-Progreso { background-color: rgba(187, 128, 9, 0.15); color: #d29922; border-color: rgba(210, 153, 34, 0.3); }
-			.Próximamente { background-color: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
-
-			h3 { margin: 0 0 8px 0; font-size: 1.3rem; }
-			.desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0; }
-
-			.tech-stack {
-				display: flex;
-				gap: 8px;
-				flex-wrap: wrap;
-			}
-
-			.tech-tag {
-				background-color: rgba(139, 148, 158, 0.1);
-				color: var(--accent);
-				font-size: 0.8rem;
-				padding: 2px 8px;
-				border-radius: 4px;
-				border: 1px solid rgba(88, 166, 255, 0.1);
-			}
-		</style>
 	</head>
-	<body>
-		<header>
-			<div class="header-text">
-				<h1>Ecosistema de Desarrollo</h1>
-				<p>Portafolio modularizado con Arquitectura Astro Content Layer e internacionalización nativa.</p>
+	
+	<!-- Reemplazo de body antiguo por clases utilitarias (Fondo oscuro, tipografía de sistema y ancho max) -->
+	<body class="bg-[#0a0e14] text-[#f0f6fc] font-sans antialiased max-w-[1000px] mx-auto px-5 py-10">
+		
+		<!-- Reemplazo de header antiguo por Flexbox moderno y responsivo -->
+		<header class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-10 pb-5 border-b border-[#30363d]">
+			<div class="space-y-2">
+				<h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#58a6ff] to-white bg-clip-text text-transparent">
+					Ecosistema de Desarrollo
+				</h1>
+				<p class="text-[#8b949e] text-lg leading-relaxed">
+					Portafolio modularizado con Arquitectura Astro Content Layer e internacionalización nativa.
+				</p>
 			</div>
-			<!-- Enlaces semánticos para cambiar de idioma de forma nativa por servidor (SEO Friendly) -->
-			<div class="lang-switcher">
-				<a href="/" class="lang-link active">ES</a>
-				<a href="/en" class="lang-link">EN</a>
+			
+			<!-- Conmutador de idiomas estilizado (Reemplazo de .lang-switcher y .lang-link) -->
+			<div class="flex gap-2 self-start sm:self-auto">
+				<a href="/" class="bg-blue-500/10 border border-[#58a6ff] text-[#58a6ff] px-3 py-1.5 rounded-md text-sm font-semibold transition-all">
+					ES
+				</a>
+				<a href="/en" class="bg-[#151b23] border border-[#30363d] text-[#f0f6fc] px-3 py-1.5 rounded-md text-sm font-semibold hover:border-[#58a6ff]/50 hover:text-[#58a6ff] transition-all">
+					EN
+				</a>
 			</div>
 		</header>
+
 		<main>
-			<section class="bento-grid">
-				{/* Iteramos y renderizamos dinámicamente el listado filtrado en español */}
+			<!-- Reemplazo de .bento-grid antigua por una rejilla responsiva auto-ajustable -->
+			<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 				{proyectosOrdenados.map((proyecto) => (
-					<a href={proyecto.data.url} class="card">
+					/* Reemplazo de .card antigua por una tarjeta con efectos de microinteracciones fluidas */
+					<a href={proyecto.data.url} class="group bg-[#151b23] border border-[#30363d] rounded-xl p-6 flex flex-col justify-between hover:border-[#58a6ff] hover:-translate-y-1 transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-blue-500/5">
 						<div>
-							<div class="card-header">
-								<span class="icon">{proyecto.data.icono}</span>
-								<span class={`badge ${proyecto.data.estado.replace(' ', '-')}`}>
+							<div class="flex justify-between items-start mb-4">
+								<!-- El icono ahora se agranda sutilmente cuando pasas el cursor sobre la tarjeta -->
+								<span class="text-3xl filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+									{proyecto.data.icono}
+								</span>
+								
+								<!-- Badges dinámicos mapeados con condicionales nativos de Tailwind -->
+								<span class={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
+									proyecto.data.estado === 'Completado' ? 'bg-green-500/10 text-[#3fb950] border-green-500/30' :
+									proyecto.data.estado === 'En Progreso' ? 'bg-amber-500/10 text-[#d29922] border-amber-500/30' :
+									'bg-gray-500/10 text-[#8b949e] border-[#30363d]'
+								}`}>
 									Fase {proyecto.data.fase} • {proyecto.data.estado}
 								</span>
 							</div>
-							<h3>{proyecto.data.titulo}</h3>
-							<p class="desc">{proyecto.data.descripcion}</p>
+							
+							<h3 class="text-xl font-bold mb-2 group-hover:text-[#58a6ff] transition-colors">
+								{proyecto.data.titulo}
+							</h3>
+							<p class="text-[#8b949e] text-sm leading-relaxed mb-5">
+								{proyecto.data.descripcion}
+							</p>
 						</div>
-						<div class="tech-stack">
+						
+						<!-- Contenedor .tech-stack y etiquetas .tech-tag estilizadas -->
+						<div class="flex flex-wrap gap-2 mt-auto">
 							{proyecto.data.tecnologias.map((tech) => (
-								<span class="tech-tag">{tech}</span>
+								<span class="bg-[#8b949e]/10 text-[#58a6ff] text-xs px-2 py-0.5 rounded border border-[#58a6ff]/10 font-medium">
+									{tech}
+								</span>
 							))}
 						</div>
 					</a>
