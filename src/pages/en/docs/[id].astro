@@ -50,7 +50,7 @@ const pageTitle = `${doc.data.title} | Technical Docs`;
 						{menuOrdenado.map((item: CollectionEntry<'docs'>) => (
 							<li>
 								{/* 🟢 ENLACE DINÁMICO: Cada botón lleva a su propia URL de manual */}
-								<a href={`/docs/${item.id.split('/').pop()?.replace('.mdx', '')}`} class={`block px-3 py-2 rounded-md text-sm transition-all no-underline ${
+								<a href={`/en/docs/${item.id.split('/').pop()?.replace('.mdx', '')}`} class={`block px-3 py-2 rounded-md text-sm transition-all no-underline ${
 									currentId === item.id.split('/').pop()?.replace('.mdx', '')
 										? 'bg-blue-500/10 text-[#58a6ff] font-semibold border border-blue-500/20'
 										: 'text-[#f0f6fc] hover:bg-[#8b949e]/10'
