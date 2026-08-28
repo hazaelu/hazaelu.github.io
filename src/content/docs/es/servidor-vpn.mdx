@@ -1,0 +1,61 @@
+---
+title: "Orquestación VPN WireGuard"
+section: "Infraestructura & Redes"
+order: 2
+description: "Manual de despliegue hermético para un nodo de red privada virtual cifrada utilizando Docker Compose sobre Linux."
+---
+
+# Despliegue de Servidor VPN Privado
+
+Esta guía técnica describe el procedimiento de ingeniería para inicializar, aislar y asegurar un nodo de red privada virtual (**VPN**) utilizando el protocolo criptográfico **WireGuard** orquestado de forma aislada dentro de contenedores **Docker**.
+
+## 🛡️ Ventajas de la Arquitectura Utilizada
+- **Aislamiento de Kernel:** El uso de Docker impide que los binarios de red contaminen el sistema operativo host.
+- **Eficiencia del Protocolo:** WireGuard ofrece un rendimiento UDP hasta un 85% más rápido que protocolos heredados como OpenVPN.
+- **Resiliencia Automatizada:** Implementación de políticas de reinicio automático ante caídas de energía en el servidor de la nube (AWS / DigitalOcean).
+
+## 🧱 Configuración del Archivo de Orquestación
+
+El archivo central de despliegue `docker-compose.yml` mapea las variables de red del kernel de Linux mediante permisos estrictos de administrador.
+
+```yaml
+version: "3.8"
+
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard_server
+    cap_add:
+      - NET_ADMIN # Permiso exclusivo para modificar tablas de enrutamiento
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Panama
+      - SERVERPORT=51820 # Puerto UDP oficial cifrado
+      - PEERS=iphone,computadora # Dispositivos con llaves criptográficas generadas
+      - PEERDNS=1.1.1.1 # DNS seguro de Cloudflare
+      - ALLOWEDIPS=0.0.0.0/0 # Fuerza todo el tráfico a través del túnel
+    volumes:
+      - ./config:/config # Persistencia local de llaves criptográficas privadas
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    restart: unless-stopped
+```
+
+## 🚀 Comandos de Control en Consola Bash
+
+Para inicializar la infraestructura de red y verificar las firmas criptográficas de los dispositivos enlazados, ejecute la siguiente secuencia:
+
+1. **Encender el contenedor en segundo plano (Detached Mode):**
+   ```bash
+   docker compose up -d
+   ```
+
+2. **Auditar logs en vivo y extraer los códigos QR de conexión:**
+   ```bash
+   docker logs -f wireguard_server
+   ```
+
+Al escanear el código QR impreso en la terminal desde la aplicación móvil de WireGuard, el dispositivo del cliente establecerá un túnel seguro con cifrado simétrico extremo a extremo.

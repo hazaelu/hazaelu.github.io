@@ -6,5 +6,5 @@
   "estado": "Completado",
   "icono": "📚",
   "tecnologias": ["MDX", "Astro v7", "Technical Writing"],
-  "url": "/docs"
+  "url": "/docs/instalacion"
 }

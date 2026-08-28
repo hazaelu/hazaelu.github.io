@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import '../../styles/global.css';
+
+// 1. GENERACIÓN DE RUTAS ESTÁTICAS DE DOCUMENTACIÓN (SSG)
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  const docsEspanol = docs.filter((doc: CollectionEntry<'docs'>) => doc.filePath?.includes('/es/'));
+  
+  return docsEspanol.map(doc => {
+    const idLimpio = doc.id.split('/').pop()?.replace('.mdx', '');
+    return {
+      params: { id: idLimpio }, // La URL será /docs/instalacion, /docs/servidor-vpn, etc.
+      props: { doc, docsEspanol: docs } // Pasamos el documento actual y la lista completa para el menú
+    };
+  });
+}
+
+const { doc, docsEspanol } = Astro.props;
+
+// Filtramos la lista global para armar el menú lateral izquierdo solo con manuales en español
+const menuDocs = docsEspanol.filter((d: CollectionEntry<'docs'>) => d.filePath?.includes('/es/'));
+const menuOrdenado = menuDocs.sort((a, b) => a.data.order - b.data.order);
+
+// Extraemos el ID de la URL actual para saber qué enlace pintar como activo en el menú
+const currentId = Astro.params.id;
+
+// Renderizamos el contenido del archivo MDX seleccionado
+const { Content } = await render(doc);
+const pageTitle = `${doc.data.title} | Documentación Técnica`;
+---
+
+<html lang="es" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{pageTitle}</title>
+	</head>
+	<body class="bg-[#0a0e14] text-[#f0f6fc] font-sans antialiased flex min-height-screen m-0 p-0">
+		
+		<!-- MENU LATERAL TÉCNICO (SIDEBAR) -->
+		<aside class="w-[280px] bg-[#151b23] border-r border-[#30363d] p-7 flex flex-col justify-between min-h-screen sticky top-0">
+			<div>
+				<a href="/" class="text-[#8b949e] hover:text-[#f0f6fc] text-sm font-medium no-underline mb-6 inline-block transition-colors">
+					← Volver al Inicio
+				</a>
+				<div class="mb-8">
+					<h2 class="text-[#8b949e] text-xs font-bold uppercase tracking-wider m-0 mb-1">Ecosistema Core</h2>
+					<p class="text-[#58a6ff] text-sm font-extrabold m-0">Documentación Oficial</p>
+				</div>
+				
+				<nav>
+					<div class="text-[#8b949e] text-xs font-bold uppercase tracking-wider mb-3">Primeros Pasos</div>
+					<ul class="list-none p-0 m-0 space-y-1">
+						{menuOrdenado.map((item: CollectionEntry<'docs'>) => (
+							<li>
+								{/* 🟢 ENLACE DINÁMICO: Cada botón lleva a su propia URL de manual */}
+								<a href={`/docs/${item.id.split('/').pop()?.replace('.mdx', '')}`} class={`block px-3 py-2 rounded-md text-sm transition-all no-underline ${
+									currentId === item.id.split('/').pop()?.replace('.mdx', '')
+										? 'bg-blue-500/10 text-[#58a6ff] font-semibold border border-blue-500/20'
+										: 'text-[#f0f6fc] hover:bg-[#8b949e]/10'
+								}`}>
+									{item.data.title}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			</div>
+
+			<div class="text-sm font-semibold">
+				<a href="/en/docs/installation" class="text-[#8b949e] hover:text-[#58a6ff] no-underline transition-colors">🇺🇸 English Version</a>
+			</div>
+		</aside>
+
+		<!-- PANEL DE LECTURA MDX REFACTORIZADO PARA TAILWIND V4 -->
+		<main class="flex-1 px-12 py-12 max-w-[800px] overflow-y-auto">
+			<!-- 🟢 SOLUCIÓN VISUAL: Clases forzadas de Tailwind para renderizar los # de MDX de forma gigante -->
+			<article class="[&_h1]:text-3xl [&_h1]:font-extrabold [&_h1]:mb-6 [&_h1]:pb-4 [&_h1]:border-b [&_h1]:border-[#30363d] [&_h1]:text-white
+				[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b [&_h2]:border-[#30363d] [&_h2]:text-[#58a6ff]
+				[&_p]:text-[#e6edf3] [&_p]:leading-relaxed [&_p]:text-[1.05rem] [&_p]:mb-4
+				[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4
+				[&_li]:mb-2 [&_li]:text-[#e6edf3]
+				[&_code]:bg-[#8b949e]/15 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:font-mono [&_code]:text-sm [&_code]:text-[#ff7b72]
+				[&_pre]:bg-[#161b22] [&_pre]:border [&_pre]:border-[#30363d] [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:my-5 [&_pre]:overflow-x-auto">
+				<Content />
+			</article>
+		</main>
+	</body>
+</html>

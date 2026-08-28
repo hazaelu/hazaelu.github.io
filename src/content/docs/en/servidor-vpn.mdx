@@ -1,0 +1,61 @@
+---
+title: "WireGuard VPN Orchestration"
+section: "Infrastructure & Networks"
+order: 2
+description: "Hermetic deployment manual for an encrypted virtual private network node utilizing Docker Compose over Linux."
+---
+
+# Deploying a Private VPN Server
+
+This technical manual breaks down the engineering pipeline to initialize, isolate, and safeguard an encrypted virtual private network (**VPN**) node leveraging the **WireGuard** cryptographic protocol orchestrated inside isolated **Docker** containers.
+
+## 🛡️ Architectural Advantages
+- **Kernel Isolation:** Docker encapsulation prevents network binaries from polluting the host operating system.
+- **Protocol Efficiency:** WireGuard delivers a UDP throughput up to 85% faster than legacy protocols such as OpenVPN.
+- **Automated Resilience:** Implements automated restart directives to mitigate server hardware power-offs in the cloud (AWS / DigitalOcean).
+
+## 🧱 Orchestration File Configuration
+
+The core deployment blueprint `docker-compose.yml` maps Linux kernel network variables through strict administrator privileges.
+
+```yaml
+version: "3.8"
+
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard_server
+    cap_add:
+      - NET_ADMIN # Exclusive privilege to modify routing tables
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Panama
+      - SERVERPORT=51820 # Official encrypted UDP port
+      - PEERS=iphone,computadora # Devices with auto-generated cryptographic keys
+      - PEERDNS=1.1.1.1 # Cloudflare secure DNS
+      - ALLOWEDIPS=0.0.0.0/0 # Forces all device traffic through the tunnel
+    volumes:
+      - ./config:/config # Local persistence for private cryptographic keys
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    restart: unless-stopped
+```
+
+## 🚀 Bash Console Control Pipeline
+
+To initialize the network infrastructure and audit the cryptographic handshakes of linked devices, execute the following command sequence:
+
+1. **Boot the container in background (Detached Mode):**
+   ```bash
+   docker compose up -d
+   ```
+
+2. **Audit real-time logs and extract connection QR codes:**
+   ```bash
+   docker logs -f wireguard_server
+   ```
+
+By scanning the terminal-rendered QR code using the official WireGuard mobile application, the client device establishes an isolated symmetric tunnel with end-to-end encryption.
